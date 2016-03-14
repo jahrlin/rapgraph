@@ -1,8 +1,12 @@
 Flask==0.10.1
+graphene==0.7.3
+graphql-core==0.4.12.1
+graphql-relay==0.3.3
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
-request==0.0.2
+python-firebase==1.2
 requests==2.9.1
+six==1.10.0
 Werkzeug==0.11.4
 wheel==0.26.0

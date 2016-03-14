@@ -1,6 +1,10 @@
 from flask import Flask
 from flask import render_template
+from firebase import firebase
 import requests
+import graphene
+from classes.song import *
+
 
 class obj(object):
     def __init__(self, d):
@@ -14,17 +18,20 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return render_template('master.html', title='Rapgraph - Index', song = None)
 
-    headers = {'Authorization': 'Bearer ' + 'qTQDqeQ5NWgbqCBN8-5uVnm-9HmmkkD6_XErXOgPNn7q3CFQPdoGHCNe6hm4lpry'}
+
+@app.route('/graph/')
+@app.route('/graph/<id>')
+def graph(id=None):
+    fb = firebase.FirebaseApplication('firebase url', None)
+    headers = {'Authorization': 'Bearer ' + 'insert genius api token here'}
     r = requests.get('https://api.genius.com/songs/265', headers=headers)
     
     data = obj(r.json())
-    return '' + str(len(data.response.song.sampled_songs))
+    song = Song(artist = data.response.song.primary_artist.name);
 
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('master.html', name=name)
+    return render_template('master.html', title='Graph #'+id, song = song)
 
 if __name__ == '__main__':
     app.debug = True
