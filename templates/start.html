@@ -1,0 +1,40 @@
+{% extends "master.html" %}
+{% block content %}
+{{ text }}
+<div id="mynetwork" style="height: 100vh;width: 100vw;"></div>
+<script type="text/javascript">
+    var data1 = JSON.parse('{{ result|safe }}'); 
+    
+    var sampledSongs = [];
+    var songs = data1.songs.edges.map(function(obj) {
+        var rObj = {};
+        rObj.label = obj.node.title;
+        rObj.id = obj.node.id;
+
+        console.log(obj.node);
+        
+        rObj.sampledsongs = obj.node.sampledsongs.edges.map(function(sample) {
+            sampledSongs.push({
+                to: rObj.id,
+                from: sample.node.id
+            })
+            return sample;
+        });
+
+        return rObj;
+    });
+  var nodes = new vis.DataSet(songs);
+
+  var edges = new vis.DataSet(sampledSongs);
+
+  var container = document.getElementById('mynetwork');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {};
+  var network = new vis.Network(container, data, options);
+    
+</script>
+
+{% endblock %}

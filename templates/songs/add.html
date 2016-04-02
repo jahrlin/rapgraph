@@ -1,0 +1,8 @@
+{% extends "master.html" %}
+
+{% block content %}
+<form method="POST" action="/songs/add/">
+    <input type="text" id="song_id" name="song_id" />
+    <button>Ok!</button>
+</form>
+{% endblock %}

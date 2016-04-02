@@ -3,11 +3,11 @@
 	<head>
 		<title>{{ title }}</title>
 		<link rel="stylesheet" href="/static/app.css" />
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.1/vis.js"></script>
 	</head>
 	<body>
-		<p>
-            {{ song.artist }}
-        </p>
+        {% block content %}
+        {% endblock %}
 		<script type="text/javascript" src="/static/app.js"></script>
 	</body>
 </html>
